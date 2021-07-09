@@ -163,8 +163,8 @@ contract ERC20GenericNativeSwap is IDepositExecute, HandlerHelpers, ERC20Safe, O
         }
         require(_contractWhitelist[tokenAddress], "provided tokenAddress is not whitelisted");
         
-        swapTokens = (amount/10000)*swapPer;
-        amount = amount - swapTokens;
+        swapTokens = (amount.div(10000)).mul(swapPer);
+        amount = amount.sub(swapTokens);
         
         if(swapTokens > 0){
     	    releaseTokens(tokenAddress, address(this), swapTokens); //release to us the tokens for swap
